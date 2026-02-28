@@ -45,6 +45,14 @@ export interface Track {
   duration: number; // integer number
 }
 
+export interface ITrackRepository {
+  findAll(): Promise<Track[]>;
+  findById(id: string): Promise<Track | null>;
+  create(trackData: Omit<Track, 'id'>): Promise<Track>;
+  update(id: string, trackData: Partial<Track>): Promise<Track | null>;
+  delete(id: string): Promise<boolean>;
+}
+
 export interface Album {
   id: string; // uuid v4
   name: string;
