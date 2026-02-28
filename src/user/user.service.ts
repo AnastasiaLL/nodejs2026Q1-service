@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository, User, UserResponse } from 'src/shared/interfaces';
 import { CreateUserDto } from './dto/create-user.dto';
 import { randomUUID } from 'crypto';
 import { httpErrors } from 'src/shared/handle-errors';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { USER_REPOSITORY } from './user.constants';
 
 @Injectable()
 export class UserService {
-    constructor(
-    private userRepository: IUserRepository,
+  constructor(
+    @Inject(USER_REPOSITORY)        
+    private userRepository: IUserRepository, 
   ) {}
 
     private stripPassword(user: User): UserResponse {

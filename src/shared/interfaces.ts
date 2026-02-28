@@ -29,6 +29,14 @@ export interface Artist {
   grammy: boolean;
 }
 
+export interface IArtistRepository {
+  findAll(): Promise<Artist[]>;
+  findById(id: string): Promise<Artist | null>;
+  create(artistData: Omit<Artist, 'id'>): Promise<Artist>;
+  update(id: string, artistData: Partial<Artist>): Promise<Artist | null>;
+  delete(id: string): Promise<boolean>;
+}
+
 export interface Track {
   id: string; // uuid v4
   name: string;
