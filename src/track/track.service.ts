@@ -3,12 +3,15 @@ import { ITrackRepository, Track } from 'src/shared/interfaces';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { TRACK_REPOSITORY } from './track.constants';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class TrackService {
   constructor(
     @Inject(TRACK_REPOSITORY)
     private trackRepository: ITrackRepository,
+    private favoritesService: FavoritesService, 
+    
   ) {}
 
   async create(createTrackDto: CreateTrackDto): Promise<Track> {
@@ -60,6 +63,7 @@ export class TrackService {
       throw new NotFoundException(`Track with id ${id} not found`);
     }
 
+    await this.favoritesService.removeArtistReference(id);
     await this.trackRepository.delete(id);
   }
 

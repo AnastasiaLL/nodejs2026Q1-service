@@ -5,6 +5,7 @@ import { httpErrors } from 'src/shared/handle-errors';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { ARTIST_REPOSITORY } from './artist.constants';
+import { FavoritesService } from 'src/favorites/favorites.service';
 
 @Injectable()
 export class ArtistService {
@@ -12,6 +13,7 @@ export class ArtistService {
   constructor(
     @Inject(ARTIST_REPOSITORY)        
     private artistRepository: IArtistRepository, 
+      private favoritesService: FavoritesService, 
   ) {}
 
 
@@ -54,6 +56,7 @@ export class ArtistService {
   async deleteArtist(id: string): Promise<void> {
     const artist = await this.artistRepository.findById(id)
     if (!artist) throw httpErrors.notFound('artist not found');
+    await this.favoritesService.removeArtistReference(id);
     await this.artistRepository.delete(id)
   }
 
