@@ -3,10 +3,14 @@ import { ArtistController } from './artist.controller';
 import { ArtistService } from './artist.service';
 import { InMemoryArtistRepository } from './artist-repository';
 import { ARTIST_REPOSITORY } from './artist.constants';
+import { AlbumModule } from 'src/album/album.module';
+import { TrackModule } from 'src/track/track.module';
 
 
 @Module({
   controllers: [ArtistController],
+  imports: [AlbumModule, TrackModule],
+
   providers: [ArtistService,
     {
       provide: ARTIST_REPOSITORY,  

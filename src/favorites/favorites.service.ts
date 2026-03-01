@@ -5,6 +5,7 @@ import { InMemoryFavoritesRepository } from "./favorites-repository";
 import { FAVORITES_REPOSITORY } from "./favorites.constants";
 import { FavoritesResponseDto } from "./dto/favorites-response.dto";
 import { httpErrors } from "src/shared/handle-errors";
+import { AlbumService } from "src/album/album.service";
 
 @Injectable()
 export class FavoritesService {

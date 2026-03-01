@@ -60,6 +60,15 @@ export interface Album {
   artistId: string | null; // refers to Artist
 }
 
+export interface IAlbumRepository {
+  findAll(): Promise<Album[]>;
+  findById(id: string): Promise<Album | null>;
+  create(albumData: Omit<Album, 'id'>): Promise<Album>;
+  update(id: string, albumData: Partial<Album>): Promise<Album | null>;
+  delete(id: string): Promise<boolean>;
+  removeArtistReference(artistId: string): Promise<void>;
+}
+
 export interface Favorites {
   artists: string[]; // favorite artists ids
   albums: string[]; // favorite albums ids
